@@ -1,0 +1,41 @@
+.example-card {
+  width: 30vw;
+  height: 30vw;
+  margin: 10px;
+}
+
+:host {
+  height: 100%;
+  display: block;
+}
+
+.card-header-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 20px;
+  word-break: break-all;
+}
+
+::ng-deep {
+  .mat-card-header-text {
+    margin: 0 !important;
+    width: 100%;
+  }
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  height: calc(100% - 56px);
+  overflow-y: auto;
+}
+
+.card-list__item-actions {
+  display: flex;
+  flex-direction: row;
+
+  > * {
+    margin-right: 10px;
+  }
+}

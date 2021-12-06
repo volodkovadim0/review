@@ -1,0 +1,76 @@
+<div
+  class="mat-app-background"
+  style='height: 100vh; overflow-y: auto;'>
+  <mat-toolbar style="justify-content: space-between">
+    <span
+      routerLink="/"
+      style="cursor: pointer">
+      Re Cum In Dations
+    </span>
+
+
+    <div>
+      <button mat-raised-button
+              *ngIf="!authenticated"
+              (click)="openLogin()">
+        {{"login" | translate}}
+      </button>
+
+      <ng-container *ngIf="authenticated">
+        <button
+          mat-stroked-button
+          [matMenuTriggerFor]="beforeMenu">{{fullName}}</button>
+
+        <mat-menu #beforeMenu="matMenu"
+                  xPosition="before">
+          <button
+            (click)="$event.stopPropagation()"
+            mat-menu-item>
+            <div style='display: flex; justify-content: space-between; align-items: center'>
+              <mat-icon> wb_sunny</mat-icon>
+              <mat-slide-toggle
+                [formControl]='darkThemeControl'
+                style='margin: 5px'></mat-slide-toggle>
+              <mat-icon>brightness_3</mat-icon>
+            </div>
+          </button>
+
+
+          <button
+            mat-menu-item
+            (click)="$event.stopPropagation()">
+            <div style='display: flex; justify-content: space-between; align-items: center'>
+              RU
+              <mat-slide-toggle
+                [formControl]='languageControl'
+                style='margin: 5px'></mat-slide-toggle>
+              EN
+            </div>
+          </button>
+
+          <button
+            *ngIf="authenticated"
+            mat-menu-item
+            [routerLink]="['/','create']"
+            style="display: flex; flex-direction: row; align-items: center">
+            <mat-icon>add</mat-icon>
+            <span>
+              {{"create review" | translate }}
+            </span>
+          </button>
+
+          <button
+            mat-menu-item
+            *ngIf="authenticated"
+            (click)="logOut()">
+            {{"logout" | translate}}
+          </button>
+        </mat-menu>
+      </ng-container>
+    </div>
+  </mat-toolbar>
+
+  <div style='height: calc(100vh - 64px)'>
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<div
+  *ngIf='review._id'
+  class='review'>
+  <div class='review__card'>
+    <div style='display: flex;  justify-content: space-between;'>
+      <div style='display: flex; flex-direction: row ;align-items: center'>
+        <h2 class='review__title'>
+            {{review.name}}
+          </h2>
+
+          <mat-chip-list style='margin: 0 0 0 13px'>
+             <mat-chip
+               color='primary'
+               selected>
+              {{review.group}}
+             </mat-chip>
+          </mat-chip-list>
+         <mat-chip-list
+           style='margin: 0 0 0 7px'
+         *ngFor="let tag of review.tags.slice(0,3)">
+             <mat-chip
+               color='primary'
+               selected>
+              {{tag}}
+             </mat-chip>
+          </mat-chip-list>
+        </div>
+
+       <button style="margin-right: 25px"
+         mat-icon-button
+         [disabled]="likeProcessing"
+         (click)='toggleLike()'>
+          <mat-icon
+            style="font-size: 50px"
+            *ngIf='reviewWithRatings.selfLike'>
+          favorite
+        </mat-icon>
+        <mat-icon
+          style="font-size: 50px"
+          *ngIf='!reviewWithRatings.selfLike'>
+          favorite_border
+        </mat-icon>
+       </button>
+
+      </div>
+
+    <div style='display: flex; justify-content: space-between; margin: 10px 10px 10px 0 '>
+      <div>
+        <div style='display: flex; align-items: center; margin-top: 5px' [routerLink]="['/','user',author._id]">
+        <mat-icon>account_circle</mat-icon>
+          {{author.firstName}} {{author.lastName}}
+        </div>
+      </div>
+
+      <app-rating size="40"
+                  [reviewId]="review._id"
+                  [value]="reviewWithRatings.selfRating || 0"
+                  (rated)="setRating($event)">
+      </app-rating>
+    </div>
+
+    <div style="height: 500px; margin-bottom: 20px">
+      <ngx-slider [init]="slider"></ngx-slider>
+    </div>
+
+   <div class='review__content'>
+    <div class='review__content'>
+      <markdown
+        lineNumbers
+        [start]="5"
+        [data]='review.content'>
+      </markdown>
+
+    </div>
+  </div>
+</div>

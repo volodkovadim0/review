@@ -1,0 +1,9 @@
+.review-list__actions {
+  display: flex;
+  flex-direction: row;
+
+  > * {
+    margin-right: 10px;
+    display: block;
+  }
+}

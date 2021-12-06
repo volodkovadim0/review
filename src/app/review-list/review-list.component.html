@@ -1,0 +1,128 @@
+<table mat-table
+       STYLE="width: 100%"
+       [dataSource]="pageResult.items"
+       class="mat-elevation-z8">
+
+  <ng-container [matColumnDef]="position">
+    <th mat-header-cell
+        *matHeaderCellDef> No.
+    </th>
+    <td mat-cell
+        *matCellDef="let element; index as index"> {{index + 1}} </td>
+  </ng-container>
+
+  <ng-container [matColumnDef]="name">
+    <th mat-header-cell
+        *matHeaderCellDef> {{'name' | translate}}
+    </th>
+    <td mat-cell
+        *matCellDef="let element">
+      {{asReview(element).review.name}}
+    </td>
+  </ng-container>
+
+  <ng-container [matColumnDef]="authorName">
+    <th mat-header-cell
+        *matHeaderCellDef>
+     {{'author' | translate}}
+    </th>
+    <td mat-cell
+        *matCellDef="let element"
+        style="text-decoration: underline; cursor: pointer"
+        [routerLink]="['/','user', asReview(element).review.authorId]">
+      {{asReview(element).author.firstName}} {{asReview(element).author.lastName}}
+    </td>
+  </ng-container>
+
+  <ng-container [matColumnDef]="group">
+    <th mat-header-cell
+        *matHeaderCellDef>
+      {{"group"| translate}}
+    </th>
+    <td mat-cell
+        *matCellDef="let element">
+      {{asReview(element).review.group}}
+    </td>
+  </ng-container>
+
+  <ng-container [matColumnDef]="rating">
+    <th mat-header-cell
+        *matHeaderCellDef>
+      {{"userRating" | translate}}
+    </th>
+    <td mat-cell
+        *matCellDef="let element"
+        style="width: 160px">
+      <app-rating *ngIf="asReview(element).middleRating !== 0"
+                  size="15"
+                  [value]="asReview(element).middleRating"
+                  [readonly]="true"></app-rating>
+    </td>
+  </ng-container>
+
+  <ng-container [matColumnDef]="authorRating">
+    <th mat-header-cell
+        *matHeaderCellDef>
+      {{"author rating" | translate}}
+    </th>
+    <td mat-cell
+        *matCellDef="let element">
+      <app-rating size="15"
+                  [value]="asReview(element).review.rating"
+                  [readonly]="true"></app-rating>
+    </td>
+  </ng-container>
+
+  <ng-container [matColumnDef]="read">
+    <th mat-header-cell
+        *matHeaderCellDef>
+      <button *ngIf="authenticated"
+              mat-raised-button
+              [routerLink]="['/','create']"
+              style="display: flex; flex-direction: row; align-items: center">
+        <mat-icon>add</mat-icon>
+        <span>
+          {{"create review" | translate }}
+        </span>
+      </button>
+    </th>
+    <td mat-cell
+        *matCellDef="let element; index as index">
+      <div class="review-list__actions">
+        <button mat-raised-button
+                [routerLink]="['/', 'read', asReview(element).review._id]">
+          <mat-icon>visibility</mat-icon>
+          {{"read"| translate}}
+        </button>
+
+        <ng-container *ngIf="isAuthorOfReview(element)">
+          <button mat-raised-button
+                  [routerLink]="['/', 'edit', asReview(element).review._id]">
+            <mat-icon>edit</mat-icon>
+            {{"edit" | translate}}
+          </button>
+
+          <button color="warn"
+                  mat-raised-button
+                  (click)="deleteReview(asReview(element).review._id, index)">
+            <mat-icon>delete</mat-icon>
+            {{"delete" | translate}}
+          </button>
+        </ng-container>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row
+      *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row
+      *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 20]"
+               (page)="updatePage($event)"
+               [pageSize]="page.pageSize"
+               [pageIndex]="page.pageIndex"
+               [length]="pageResult.total"
+               showFirstLastButtons>
+</mat-paginator>

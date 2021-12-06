@@ -1,0 +1,84 @@
+.create-edit {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  font-size: medium;
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin-top: 75px;
+  border-radius: 20px;
+}
+
+.review__name-groups {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.review__name-input {
+  width: 44%;
+}
+
+.review__group-selector {
+  width: 44%;
+}
+
+.review__tags-cloud {
+  margin-top: 10px;
+}
+
+.review__description {
+  width: 90%;
+  margin: 3% 5% 3% 5%;
+}
+
+.review-form__image {
+  height: 112px;
+  margin: 10px;
+  border-radius: 10px;
+  width: 200px;
+  object-fit: cover;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}
+
+.review-form__add-image-button {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0 10px 10px;
+  justify-content: center;
+  align-items: center;
+  height: 112px;
+  width: 200px;
+  border-radius: 10px;
+  border-style: dashed;
+  border-width: 3px;
+  border-color: black;
+  background-color: antiquewhite;
+}
+
+::ng-deep {
+  .review-form__editor {
+    .ace-editor {
+      border-bottom-left-radius: 10px;
+    }
+
+    .preview-panel {
+      border-bottom-right-radius: 10px;
+      color: black;
+      overflow-y: auto;
+    }
+
+    .tool-bar {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+  }
+}

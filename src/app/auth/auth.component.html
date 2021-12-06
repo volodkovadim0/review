@@ -1,0 +1,113 @@
+<h2 matDialogTitle
+    *ngIf="loginMode">
+  {{"appLogin" | translate}}
+</h2>
+
+<h2 matDialogTitle
+    *ngIf="registerMode">
+  {{"accCreate" | translate}}
+</h2>
+
+<mat-dialog-content style="display: flex;flex-direction: column">
+  <ng-container *ngIf="registerMode">
+    <mat-form-field>
+      <mat-label>{{"firstName" | translate}}</mat-label>
+      <input matInput
+             [formControl]="firstName"
+             placeholder="First name">
+    </mat-form-field>
+
+    <br>
+
+    <mat-form-field>
+      <mat-label>{{"lastName" | translate}}</mat-label>
+      <input matInput
+             [formControl]="lastName"
+             placeholder="Last name">
+    </mat-form-field>
+
+    <br>
+  </ng-container>
+
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput
+           type="email"
+           [formControl]="email"
+           placeholder="Email">
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field>
+    <mat-label>{{"password" | translate}}</mat-label>
+    <input matInput
+           type="password"
+           [formControl]="password"
+           placeholder="Password">
+  </mat-form-field>
+
+  <mat-error *ngIf="loginError"
+             style="max-width: 250px">
+    {{"inputError" | translate}}
+  </mat-error>
+
+  <mat-dialog-actions style="display: flex; flex-direction: column; align-items: stretch">
+    <div style="justify-content: space-between; display: flex; flex-direction: row">
+      <button mat-raised-button
+              (click)="login()"
+              *ngIf="loginMode">
+        {{"login" | translate}}
+      </button>
+
+      <button mat-raised-button
+              (click)="register()"
+              *ngIf="registerMode">
+       {{"accCreate" | translate}}
+      </button>
+
+      <button mat-raised-button
+              (click)="dialogRef.close()">
+        {{"cancel" | translate}}
+      </button>
+    </div>
+
+    <br>
+
+    <div>{{"networks" | translate}}</div>
+
+    <br>
+
+    <div style="justify-content: space-between; display: flex; flex-direction: row">
+      <button mat-raised-button
+              (click)="goToGoogleAuth()">
+        GOOGLE
+      </button>
+
+      <button mat-raised-button
+              (click)="goToYandexAuth()">
+        YANDEX
+      </button>
+      <div style="flex-grow: 1"></div>
+    </div>
+  </mat-dialog-actions>
+
+  <br>
+  <br>
+
+  <div *ngIf="registerMode">
+    {{"haveAcc" | translate}}
+    <button mat-button
+            (click)="loginMode = true">
+      {{"loginNow" | translate}}
+    </button>
+  </div>
+
+  <div *ngIf="loginMode">
+    {{"haventAcc" | translate}}
+    <button mat-button
+            (click)="loginMode = false">
+      {{"createNow" | translate}}
+    </button>
+  </div>
+</mat-dialog-content>

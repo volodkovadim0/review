@@ -1,0 +1,15 @@
+<div style="margin: 16px">
+  <h2>{{ "pageOf" | translate: {name: user.firstName} }} </h2>
+
+  <div>{{"fullName" | translate : {name: user.firstName} }}</div>
+
+  <div>Email: {{user.email}}</div>
+
+  <br>
+  <br>
+
+  <h2>{{"reviewOf" | translate : {name : user.lastName} }}</h2>
+</div>
+
+
+<app-review-list [getItemsPage]="getReviewsByUser"></app-review-list>
